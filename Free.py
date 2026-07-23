@@ -30,6 +30,7 @@ Input:
 
 Output:
 2
+
 """
 n = int(input())
 diction = {}
