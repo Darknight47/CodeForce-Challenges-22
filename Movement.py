@@ -1,0 +1,64 @@
+"""
+
+--------------------------------------------------------- Link for the challenge: https://codeforces.com/problemset/problem/2250/A -----------------------------------
+
+There are n+2 positions numbered from 0 to n+1. Initially, position i contains an element of weight wi for every 1≤i≤n, while positions 0 and n+1 are empty.
+
+You choose an integer k. Then every element moves exactly once, simultaneously:
+
+If wi<k, the element at position i moves to position i−1;
+If wi>k, the element at position i moves to position i+1;
+If wi=k, the entire movement process fails immediately.
+An integer k is perfect if the movement does not fail and, upon completion, every position from 1 to n contains exactly one element.
+
+Determine whether a perfect integer k exists.
+
+Input
+Each test contains multiple test cases. The first line contains the number of test cases t (1 ≤ t ≤ 500). The description of the test cases follows.
+
+The first line of each test case contains one integer n (1 ≤ n ≤ 100).
+
+The second line of each test case contains n integers w1,w2,…,wn (1 ≤ wi ≤ 10^9).
+
+Output
+For each test case, print "YES" if a perfect integer k exists, and "NO" otherwise.
+
+You can output the answer in any case (upper or lower). For example, the strings "yEs", "yes", "Yes", and "YES" will be recognized as positive responses.
+
+Input:
+6
+1
+7
+2
+3 1
+2
+2 1
+4
+9 1 7 2
+4
+9 8 7 1
+6
+1000000000 1 9 2 8 3
+
+Output:
+NO
+YES
+NO
+YES
+NO
+YES
+"""
+cases = int(input())
+for _ in range(cases):
+    n = int(input())
+    arr = list(map(int, input().split()))
+    if(n % 2 == 1):
+        print("NO")
+        continue
+    max_even = max(arr[1::2]) # Even 1-based positions
+    min_odd = min(arr[0::2])  # Odd 1-based positions
+
+    if max_even + 1 < min_odd:
+        print("YES")
+    else:
+        print("NO")
