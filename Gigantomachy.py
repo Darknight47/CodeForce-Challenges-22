@@ -1,0 +1,86 @@
+"""
+
+
+---------------------------------------------- Link for the challenge: https://codeforces.com/problemset/problem/2257/B -------------------------------------------------
+
+Two giants, Bea and Ver, are playing a game. Each giant has his own mountain range. 
+You have already measured all these mountains and now know that the heights of the mountains in Bea's range are a1,a2,…an, and in Ver's range are b1,b2,…bm, with
+the mountains numbered from left to right for Bea and from right to left for Ver. At the beginning of the game, the giants stand on the mountain numbered 1. 
+Thus, they face each other and see all their mountains and all the mountains of their opponent. 
+It turns out that Bea and Ver are connoisseurs of beauty, so the mountains in their ranges are arranged in non-increasing order, specifically ai≥ai+1 for 1≤i<n and bi≥bi+1 for 1≤i<m.
+
+In the illustration below, there is an example of the initial arrangement, where Bea has the range a1,a2,a3=3,2,1, and Ver has the range b1,b2=4,2. 
+For simplicity, the mountains are depicted as rectangles, with Bea's mountains on the left and Ver's on the right. For your good mood, the giants Bea and Ver are represented as beavers.
+
+Bea and Ver are not very smart, so on each turn they perform the same action. 
+Specifically, the giant on his turn takes a boulder and throws it at the mountain on which his opponent is standing; as a result, the height of that mountain decreases by 1. 
+If the giant on his turn sees that the mountain directly in front of him is higher (with a number one greater) than the one he is standing on, he jumps to it. 
+If, however, the giant discovers that he is standing on regular ground (the height of the current mountain is 0) and there are no more mountains in front of him, he admits defeat. Bea goes first.
+
+You know that their game can last a very long time, due to the enormous heights of the mountains and their quantities, so you want to determine who will win.
+
+Input
+Each test contains multiple test cases. The first line contains the number of test cases t (1 ≤ t ≤ 500). The description of the test cases follows.
+
+The first line of each test case contains two integers n and m — the number of mountains in the first and second giant's range, respectively (1≤n,m≤100).
+
+The second line of the test case contains n integers a1,a2,…an — the heights of the mountains of the first giant (1≤ai≤10^9; ai≥ai+1).
+
+The third line of the test case contains m integers b1,b2,…bm — the heights of the mountains of the second giant (1≤bi≤10^9; bi≥bi+1).
+
+Output
+For each test case, output a single number — the number of the giant who will win.
+
+
+Input:
+6
+1 1
+1
+1
+1 1
+1
+2
+1 2
+4
+4 1
+4 2
+4 3 2 1
+10 1
+4 2
+4 3 2 1
+6 5
+4 2
+4 3 2 1
+7 5
+
+
+Output:
+1
+2
+2
+2
+1
+2
+"""
+def steps(mountains):
+    total = 0
+
+    for i in range(len(mountains) - 1):
+        total += mountains[i] - mountains[i + 1]  # attacks needed
+        total += 1                                 # jump turn
+
+    total += mountains[-1]  # destroy the final mountain
+
+    return total
+
+cases = int(input())
+for _ in range(cases):
+    n, m = map(int, input().split())
+    beas = list(map(int, input().split()))
+    vers = list(map(int, input().split()))
+    bea_steps = steps(beas)
+    ver_steps = steps(vers)
+    if(bea_steps >= ver_steps):
+        print(1)
+    else:
+        print(2)
